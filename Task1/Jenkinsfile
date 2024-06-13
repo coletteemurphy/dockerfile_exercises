@@ -30,6 +30,7 @@ pipeline{
         }
         stage('tidy up'){
             steps{
+                echo "delete old containers"
                 //delete old images (not current version as is image for running container)
             }
         }
