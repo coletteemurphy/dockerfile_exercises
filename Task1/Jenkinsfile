@@ -29,15 +29,19 @@ pipeline{
         }
         stage('Push to   docker hub'){
             steps{
-                echo "login to dockerhub with credentials"   
+                echo "login to dockerhub with credentials"  
+                sh "docker login -u ${DOCKERHUB_CREDS_USR} -p ${DOCKERHUB_CREDS_PSW}"
                 echo "push flask app" 
+                sh "docker push ${DOCKERHUB_CREDS_USR}/task1-flask-app:${VERSION}"
                 echo "push nginx" 
-                echo "logout of dockerhub "    
+                sh "docker push ${DOCKERHUB_CREDS_USR}/task1-nginx:${VERSION}"
+                echo "logout of dockerhub " 
+                sh "docker logout"   
             }     
         }
         stage('tidy up'){
             steps{
-                echo "delete old containers"
+                echo "delete old images"
                 //delete old images (not current version as is image for running container)
             }
         }
