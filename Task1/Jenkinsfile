@@ -7,13 +7,15 @@ pipeline{
     stages{
         stage('Build images'){
             steps{
-                echo "delete any old images"
                 echo "build flask app - use version "
+                sh "docker build -t ${DOCKERHUB_CREDS_USR}/task1-flask-app:${VERSION} Task1"
                 echo "build nginx - use version "
             }     
         }
         stage('Deploy containers'){
             steps{
+                echo "delete any old images"
+                sh "docker build -t ${DOCKERHUB_CREDS_USR}/task1-flask-app:${VERSION} Task1"
                 echo "create network"   
                 echo "remove any containers" 
                 echo "deploy flak app on network with pass for YOUR_NAME (docker run image:version)" 
