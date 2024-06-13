@@ -19,9 +19,12 @@ pipeline{
                 sh "docker rm -f \$(docker ps -qa) || true"
                 echo "create network"
                 sh "docker create network example-network || true"   
-                echo "remove any containers" 
+               
                 echo "deploy flak app on network with pass for YOUR_NAME (docker run image:version)" 
-                echo "DEPLOY nginx with port "    
+                sh "docker run -d --network example-network --name flask-app -e YOUR_NAME=ColetteOnJenkins ${DOCKERHUB_CREDS_USR}/task1-flask-app:${VERSION}"
+                echo "DEPLOY nginx with port "   
+                sh "docker run -d -p 80:80 --name nginx --network task1-net ${DOCKERHUB_CREDS_USR}/task1-nginx:${VERSION}"
+                 
             }     
         }
         stage('Push to   docker hub'){
