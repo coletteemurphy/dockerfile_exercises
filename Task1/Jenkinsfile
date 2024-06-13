@@ -1,0 +1,37 @@
+pipeline{
+    agent any
+    environment{
+        VERSION = "V1"
+        DOCKERHUB_CREDS = credentials('dockerhub')
+    }
+    stages{
+        stage('Build images'){
+            steps{
+                echo "delete any old images"
+                echo "build flask app - use version "
+                echo "build nginx - use version "
+            }     
+        }
+        stage('Deploy containers'){
+            steps{
+                echo "create network"   
+                echo "remove any containers" 
+                echo "deploy flak app on network with pass for YOUR_NAME (docker run image:version)" 
+                echo "DEPLOY nginx with port "    
+            }     
+        }
+        stage('Push to   docker hub'){
+            steps{
+                echo "login to dockerhub with credentials"   
+                echo "push flask app" 
+                echo "push nginx" 
+                echo "logout of dockerhub "    
+            }     
+        }
+        stage('tidy up'){
+            steps{
+                //delete old images (not current version as is image for running container)
+            }
+        }
+    }
+}
