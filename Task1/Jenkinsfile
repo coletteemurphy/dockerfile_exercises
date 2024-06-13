@@ -10,6 +10,7 @@ pipeline{
                 echo "build flask app - use version "
                 sh "docker build -t ${DOCKERHUB_CREDS_USR}/task1-flask-app:${VERSION} Task1"
                 echo "build nginx - use version "
+                sh "docker build -t ${DOCKERHUB_CREDS_USR}/task1-nginx:${VERSION} -f Task1/Dockerfile.nginx Task1"
             }     
         }
         stage('Deploy containers'){
