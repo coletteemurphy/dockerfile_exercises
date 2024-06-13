@@ -16,8 +16,9 @@ pipeline{
         stage('Deploy containers'){
             steps{
                 echo "delete any old images"
-                sh "docker build -t ${DOCKERHUB_CREDS_USR}/task1-flask-app:${VERSION} Task1"
-                echo "create network"   
+                sh "docker rm -f \$(docker ps -qa) || true"
+                echo "create network"
+                sh "docker create network example-network || true"   
                 echo "remove any containers" 
                 echo "deploy flak app on network with pass for YOUR_NAME (docker run image:version)" 
                 echo "DEPLOY nginx with port "    
